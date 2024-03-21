@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thereads</title>
+  <style>
+  		body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+.pd{
+				margin-top: 150px;
+}
+h1 {
+  font-size: 24px;
+  margin-top: 0;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+#url {
+  width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#download-button2 {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#download-button2 a{
+				color: #fff;
+				text-decoration: none;
+}
+#result {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+#logo {
+				width: 270px;
+				height: 80px;
+}
+#result img {
+				width: 100%;
+				height: 100%;
+				border-radius: 4px;
+				border: 2px solid #fff;
+}
+#result video {
+				width: 75%;
+				height: 50%;
+				border-radius: 4px;
+				border: 2px solid #fff;
+}
+#download-button{
+				width: 45%;
+				height: 30px;
+				outline :none;
+				border-radius: 6px;
+				border:1px solid #000
+}
+
+  </style>
+  <link rel="stylesheet" href="style.css">
+  <div id="toolbar">
+					
+					<h2>Baqer</h2>
+ 
+  <button  id="toolbut" class="but" onclick="toolButt()">
+  &#8801;
+</button>
+<div id="toolbar2">
+				<button onclick="toolHed()">×
+</button>
+<br><br>
+				<a href="newobject.html">Home</a>
+				<br><br>
+				
+				<a href="youtube.html">Youtube</a>
+				<br><br>
+				<a href="threads.html">Threads</a>
+				<br><br>
+				<a href="soundcloud.html">SoundCloud</a>
+				<br><br>
+				<a href="Facebook.html">Facebook</a>
+				<br><br>
+				<a href="Instagram.html">Instagram</a>
+				<br><br>
+				<a href="baqer.html">Baqer</a>
+				<br><br>
+				
+</div>
+</div>
+</head>
+<body>
+  <div id="mnu">
+  				<center>
+  								<br><br>
+  								<img id="logo"src="thr.png" alt="logo">
+  								<br><br>
+  <input id="url" type="text" placeholder="Thereads Url">
+  <br><br>
+  <button id="download-button">Download</button>
+  				</center>
+  </div>
+  <div id="result"></div>
+
+<script>
+const urlInput = document.getElementById("url");
+const downloadButton = document.getElementById("download-button");
+const resultDiv = document.getElementById("result");
+const mnu = document.getElementById('mnu');
+resultDiv.style.display ="none";
+downloadButton.addEventListener("click", () => {
+  const url = urlInput.value;
+  fetch(`https://api.threadsphotodownloader.com/v2/media?url=${url}`)
+    .then((response) => response.json())
+    .then((data) => {
+      let downloadUrl;
+      if (data.video_urls.length > 0) {
+        downloadUrl = data.video_urls[0].download_url;
+        resultDiv.style.display ="block";
+        mnu.style.display ="none";
+        const newd = `
+						<center>
+										
+			<video> src="${downloadUrl}">	</video>
+			<br><h4>Cleck To Download Video ✅</h4><br>
+			<button id="download-button2"><a href="${downloadUrl}">Download</a></button>
+			</center>
+						`;
+        resultDiv.innerHTML = newd;
+      } else {
+        downloadUrl = data.image_urls[0];
+        resultDiv.style.display ="block";
+        mnu.style.display ="none";
+        const newd = `
+						<center>
+										
+			<img src="${downloadUrl}">	<br><h4>Cleck To Download Img ✅</h4><br>
+			<button id="download-button2"><a href="${downloadUrl}">Download</a></button>
+			</center>
+						`;
+        resultDiv.innerHTML = newd;
+      }
+      console.log(downloadUrl)
+    })
+    .catch((error) => {
+      resultDiv.innerHTML = `<p>حدث خطأ أثناء تحميل الملف.</p>`;
+    });
+});
+				
+</script>
+<script src="script.js"></script>
+<center>
+<div class="pd">
+				<p >©Copyright 2024 | @b_4qr </p>
+				<p >My channel | @python_pa </p>
+</div>
+</center> 
+</body>
+</html>
